@@ -45,13 +45,17 @@ int main (){
     //*** se variável 0 ou 1, ir pro fim 
 
     //passar valores para array
-    nroMintermos = tamArray(mintermos); 
+    if(mintermos == "") nroMintermos = 0; 
+    else
+        nroMintermos = tamArray(mintermos); 
     mintermo_ arrayMintermos[nroMintermos]; 
     stringToArray(mintermos, arrayMintermos); 
     
     preencheBinario(arrayMintermos, nroMintermos, qntdVariaveis); 
 
-    nroDontCares = tamArray(dontCares); 
+    if(dontCares == "") nroDontCares = 0;
+    else
+        nroDontCares = tamArray(dontCares); 
     mintermo_ arrayDontCares[nroDontCares]; 
     stringToArray(dontCares, arrayDontCares); 
 
@@ -94,7 +98,7 @@ int main (){
     ordenaColuna(coluna0, nroDadosColuna,qntdVariaveis); 
 
     //printando coluna
-    cout << "coluna 0: \n";
+    cout << "\n\ncoluna 0: \n";
     for (int i = 0; i<nroDadosColuna; i++){
         cout << get<3>(coluna0[i]) << ": " << get<1>(coluna0[i]) << "\n";
     }
@@ -111,11 +115,10 @@ int main (){
 
     
         //descobrindo numero de pares
-        for (int i = 0; i<nroDadosColuna;i++) {
-            nroDePares[0] += encontraPares(coluna0, nroDadosColuna,coluna0[i],qntdVariaveis);
-        }
-        nroDePares[0] = nroDePares[0]/2; 
-        cout << "Nro de pares: " << nroDePares[0] << "\n";  
+        nroDePares[0] = encontraPares(coluna0, nroDadosColuna,coluna0[1],qntdVariaveis);
+        
+        //nroDePares[0] = nroDePares[0]/2; 
+        //cout << "Nro de pares: " << nroDePares[0] << "\n";  
 
         //criando novo array para coluna 1
         //construir array levando em consideração não repetir já representados, e ordem de colunas
@@ -126,15 +129,12 @@ int main (){
                 get<1>(coluna1[i]) = ""; 
             }
             
-            for (int i = 0; i<nroDadosColuna;i++) {
-                //index eh usado para saber o quanto da coluna já preenchi
-                if (index <= nroDePares[0])                             
-                    index = constroiArrayPares(coluna0, nroDadosColuna, coluna0[i], qntdVariaveis, coluna1, nroDePares[0], index);
-            }
-            nroDePares[0] = index; 
+                                       
+            index = constroiArrayPares(coluna0, nroDadosColuna, coluna0[1], qntdVariaveis, coluna1, nroDePares[0], index);
+            
             ordenaColuna(coluna1, nroDePares[0],qntdVariaveis-1);      //posso ir mudando o numero de pares pq no final vou conseguir o numero de todos iterando
 
-            cout << "\ncoluna 1: \n";
+            cout << "\n\ncoluna 1: \n";
             for (int i = 0; i<nroDePares[0]; i++){
                 cout << get<3>(coluna1[i]) << ": " << get<1>(coluna1[i]) << "\n";
             } 
@@ -151,12 +151,12 @@ int main (){
         }
 
         //descobrindo numero de pares iterando a coluna 1 que fiz
-        for (int i = 0; i<nroDePares[0];i++) {
-            nroDePares[1] += encontraPares(coluna1, nroDePares[0],coluna1[i],qntdVariaveis);
-        }
         
-        nroDePares[1] = nroDePares[1]/2; //TESTANDO 
-        cout << "Nro de pares: " << nroDePares[1] << "\n";  
+        nroDePares[1] = encontraPares(coluna1, nroDePares[0],coluna1[1],qntdVariaveis);
+        
+        
+        //nroDePares[1] = nroDePares[1]/2; //TESTANDO 
+        //cout << "Nro de pares: " << nroDePares[1] << "\n";  
     
             mintermo_ coluna2[nroDePares[1]]; 
 
@@ -165,15 +165,11 @@ int main (){
             }
             
             index = 0; 
-            for (int i = 0; i<nroDePares[0];i++) {
-                //index eh usado para saber o quanto da coluna já preenchi
-                if (index <= nroDePares[1])                             
-                    index = constroiArrayPares(coluna1, nroDePares[0], coluna1[i], qntdVariaveis, coluna2, nroDePares[1], index);
-            }
+            index = constroiArrayPares(coluna1, nroDePares[0], coluna1[1], qntdVariaveis, coluna2, nroDePares[1], index);
             ordenaColuna(coluna2, nroDePares[1],qntdVariaveis-1);      //posso ir mudando o numero de pares pq no final vou conseguir o numero de todos iterando
 
-            nroDePares[1] = index; 
-            cout << "\ncoluna 2 \n";
+            //nroDePares[1] = index; 
+            cout << "\n\ncoluna 2 \n";
             for (int i = 0; i<nroDePares[1]; i++){
                 cout << get<3>(coluna2[i]) << ": " << get<1>(coluna2[i]) << "\n";
             } 
@@ -188,12 +184,11 @@ int main (){
         }
 
         //descobrindo numero de pares iterando a coluna 1 que fiz
-        for (int i = 0; i<nroDePares[1];i++) {
-            nroDePares[2] += encontraPares(coluna2, nroDePares[1],coluna2[i],qntdVariaveis);
-        }
+            nroDePares[2] = encontraPares(coluna2, nroDePares[1],coluna2[1],qntdVariaveis);
         
-        nroDePares[2] = nroDePares[2]/2; //TESTANDO 
-        cout << "Nro de pares: " << nroDePares[2] << "\n";  
+        
+        //nroDePares[2] = nroDePares[2]/4; //TESTANDO 
+        //cout << "Nro de pares: " << nroDePares[2] << "\n";  
 
         mintermo_ coluna3[nroDePares[2]]; 
     
@@ -201,16 +196,14 @@ int main (){
                 get<1>(coluna3[i]) = ""; 
             }
             
-            index = 0; 
-            for (int i = 0; i<nroDePares[1];i++) {
-                //index eh usado para saber o quanto da coluna já preenchi
-                if (index <= nroDePares[2])                             
-                    index = constroiArrayPares(coluna2, nroDePares[1], coluna2[i], qntdVariaveis, coluna3, nroDePares[2], index);
-            }
+            index = 0;                            
+            index = constroiArrayPares(coluna2, nroDePares[1], coluna2[1], qntdVariaveis, coluna3, nroDePares[2], index);
+        
             ordenaColuna(coluna3, nroDePares[2],qntdVariaveis-1);      //posso ir mudando o numero de pares pq no final vou conseguir o numero de todos iterando
 
-            nroDePares[2] = index; 
-            cout << "\ncoluna 3 \n";
+            //nroDePares[2] = index; 
+            
+            cout << "\n\ncoluna 3 \n";
             for (int i = 0; i<nroDePares[2]; i++){
                 cout << get<3>(coluna3[i]) << ": " << get<1>(coluna3[i]) << "\n";
             } 
@@ -225,12 +218,11 @@ int main (){
         }
 
         //descobrindo numero de pares iterando a coluna 1 que fiz
-        for (int i = 0; i<nroDePares[2];i++) {
-            nroDePares[3] += encontraPares(coluna3, nroDePares[2],coluna3[i],qntdVariaveis);
-        }
+            nroDePares[3] = encontraPares(coluna3, nroDePares[2],coluna3[1],qntdVariaveis);
         
-        nroDePares[3] = nroDePares[3]/2; //TESTANDO 
-        cout << "Nro de pares: " << nroDePares[3] << "\n";  
+        
+        //nroDePares[3] = nroDePares[3]/8; //TESTANDO 
+        //cout << "Nro de pares: " << nroDePares[3] << "\n";  
         
         mintermo_ coluna4[nroDePares[3]]; 
 
@@ -239,72 +231,18 @@ int main (){
             }
             
             index = 0; 
-            for (int i = 0; i<nroDePares[2];i++) {
-                //index eh usado para saber o quanto da coluna já preenchi
-                if (index <= nroDePares[3])                             
-                    index = constroiArrayPares(coluna3, nroDePares[2], coluna3[i], qntdVariaveis, coluna4, nroDePares[3], index);
-            }
+                                  
+            index = constroiArrayPares(coluna3, nroDePares[2], coluna3[1], qntdVariaveis, coluna4, nroDePares[3], index);
+            
             ordenaColuna(coluna4, nroDePares[3],qntdVariaveis-1);      //posso ir mudando o numero de pares pq no final vou conseguir o numero de todos iterando
 
-            nroDePares[3] = index; 
-            cout << "\ncoluna 4 \n";
+            
+            cout << "\n\ncoluna 4 \n";
             for (int i = 0; i<nroDePares[3]; i++){
                 cout << get<3>(coluna4[i]) << ": " << get<1>(coluna4[i]) << "\n";
             } 
-    
 /*------------------------------------------------------------------------------------------
-  int qualColuna = 2; 
-    int indice = 0; 
-    int countColuna = 1; 
-
-    while(!colunaVazia && qualColuna <= 4) {
-        cout << "\ncoluna" << qualColuna << "\n";
-        //aqui, eu vou preencher o get<0> da coluna, pois isso é usado para diferenciá-los na funcao abaixo. os numeros de get<0> servirao só pra isso, nao vale
-        for (int i = 0; i<nroDePares[indice];i++) {
-            get<0>(coluna[countColuna][i]) = i; 
-        }
-
-        //descobrindo numero de pares iterando a coluna 1 que fiz
-        for (int i = 0; i<nroDePares[indice];i++) {
-            nroDePares[countColuna] += encontraPares(coluna[countColuna], nroDePares[indice],coluna[countColuna][i],qntdVariaveis);
-        }
-
-        if (nroDePares[countColuna] == 0)
-            colunaVazia = true; 
-        
-        cout << "Nro de pares: " << nroDePares[countColuna] << "\n";  
-        nroDePares[countColuna] = nroDePares[countColuna]/2; //TESTANDO 
-        cout << "Nro de pares: " << nroDePares[countColuna] << "\n";  
-        
-        mintermo_ colunaX[nroDePares[countColuna]]; 
-        coluna[qualColuna] = colunaX; 
-
-        if (!colunaVazia) {
-            for(int i = 0; i < nroDePares[countColuna]; i++) {
-                get<1>(coluna[qualColuna][i]) = ""; 
-            }
-                
-            index = 0; 
-            for (int i = 0; i<nroDePares[indice];i++) {
-                //index eh usado para saber o quanto da coluna já preenchi
-                if (index <= nroDePares[countColuna])                             
-                    index = constroiArrayPares(coluna[countColuna], nroDePares[indice], coluna[countColuna][i], qntdVariaveis, coluna[qualColuna], nroDePares[countColuna], index);
-            }
-            ordenaColuna(coluna[qualColuna], nroDePares[countColuna],qntdVariaveis-1);      //posso ir mudando o numero de pares pq no final vou conseguir o numero de todos iterando
-
-            nroDePares[countColuna] = index; 
-            cout << "\ncoluna "<< qualColuna <<"\n";
-            for (int i = 0; i<nroDePares[countColuna]; i++){
-                cout << get<3>(coluna[qualColuna][i]) << ": " << get<1>(coluna[qualColuna][i]) << "\n";
-            }
-        }
-
-        qualColuna++; 
-        indice++; 
-        countColuna++;  
-    }
-*/
-
+  
 /*------------------------------------------------------------------------------------------
     ETAPA 6 - Tabela de cobertura
 */
@@ -343,14 +281,14 @@ int main (){
         }
     }
     for (int i = 0; i < nroDePares[3]; i++) {
-        if (!get<2>(coluna4[i])){
+        if (!get<2>(coluna4[i]) ){
             arrayFinal[contadorFinal] = coluna4[i]; 
             contadorFinal++; 
         }
     }
 
 
-    cout << "\ncoluna final \n";
+    cout << "\n\ncoluna final \n";
     for (int i = 0; i<contadorFinal; i++){
         cout << get<3>(arrayFinal[i]) << " (" << get<2>(arrayFinal[i]) << ") :"  << get<1>(arrayFinal[i]) << "\n";
     } 
@@ -573,140 +511,233 @@ void ordenaColuna  (mintermo_* coluna, int nroDeDados, int variaveis) {
     } 
 }
 
-int encontraPares (mintermo_* coluna, int dadosColuna, mintermo_ procurado, int nroVariaveis) {
+int encontraPares (mintermo_* coluna, int dadosColuna, mintermo_ procurdo, int nroVariaveis) {
 
-    int traco = 0;
+    int traco = -1;
     int nroDePares = 0;
     string binarioBase;       // de qual string q procuro igual 
 
     string copiaTraco;
     string auxString; 
     string copiaStrColuna;
-    
-    binarioBase = get<1>(procurado);
 
-    for (int i = 0; i < nroVariaveis; i++) {
-        traco = i; //traco em um algarismo de cada vez
+    string auxGeral = {}; 
+    string geral = {}; 
+    string copiaComTraco = {};
+    string copiaAuxString  ={}; 
+    mintermo_ procurado; 
 
+    int ajuda = auxGeral.length(); 
+    string ajudaString; 
+    bool tem = false;
 
-        //cria string equivalente (sem o algorismo do traco) em copiaTraco 
-        copiaTraco = {};
-        for (int j = 0; j<nroVariaveis; j++) {          
-            if ( j!= traco) 
-                copiaTraco = copiaTraco + binarioBase[j]; 
-        }    
+    //vou iterar pra todos os da coluna
+    for (int i = 0; i<dadosColuna;i++) {
+       
 
-        //procura string equivalente na coluna
-        for (int k = 0; k<dadosColuna; k++) {              
-            copiaStrColuna = get<1>(coluna[k]);
+        //pego o primeiro elemento da coluna
+        procurado = coluna[i]; 
+        //pego o seu valor em binario
+        binarioBase = get<1>(procurado);
 
-            //para isso, faz a string equivalente da coluna de acordo com iteracao
-            auxString = {}; 
-            for (int l = 0; l<nroVariaveis; l++) {      
-                if ( l!= traco) 
-                    auxString = auxString + copiaStrColuna[l]; 
-            } 
-
-            //cout << "coluna: " << auxString << " - procurado: " << copiaTraco << "\n"; 
-
-            //verifica equivalencia entre as duas
-            //dentro cria novo par e aloca (funcao pra isso?)
-            if(auxString == copiaTraco && get<0>(coluna[k]) != get<0>(procurado)) {
-                //cout << "\n";
-                //cout << get<3>(procurado) <<" - " <<binarioBase << " = " << get<3>(coluna[k]) << " - " << get<1>(coluna[k]) << "\n";
-                get<2>(procurado) = true;
-                get<2>(coluna[k]) = true;
-                nroDePares++;
+        //cout << "\n\nprocurando para: " << get<3>(procurado) << "\n" ; 
+ 
+        //agora, vou procurar os semelhantes para _000, 0_00, 00_0, 000_
+        traco = -1; 
+        for (int j = 0; j < nroVariaveis; j++) {
+            traco++; 
+            
+            //cria string equivalente (sem o algorismo do traco) em copiaTraco 
+            copiaTraco = {};
+            copiaComTraco = {}; 
+            for (int j = 0; j<nroVariaveis; j++) {          
+                if ( j!= traco) 
+                    copiaTraco = copiaTraco + binarioBase[j]; 
             }
-        }   
-        
-    }
+
+            if (traco < 4)
+                copiaComTraco = copiaTraco.insert(traco, 1, '-');
+
+            //cout << "\n comparando com: "; 
+            //procura string equivalente na coluna
+            for (int k = 0; k<dadosColuna; k++) {              
+                //para isso, faz a string equivalente da coluna de acordo com iteracao
+                copiaStrColuna = get<1>(coluna[k]); 
+                auxString = {}; 
+                copiaAuxString = {}; 
+                for (int l = 0; l<nroVariaveis; l++) {      
+                    if ( l!= traco) 
+                        auxString = auxString + copiaStrColuna[l]; 
+                } 
+                if (traco < 4)
+                    copiaAuxString = auxString.insert(traco, 1, '-');
+                
+                //cout <<  get<3>(coluna[k]) << ", "; 
+
+                if(copiaAuxString == copiaComTraco && k != i) {
+                    //cout << copiaAuxString << "=" << copiaComTraco << "\n"; 
+                    auxGeral = {}; 
+                    auxGeral += get<3>(procurado) + ',';
+                    auxGeral += get<3>(coluna[k]);
+
+                    auxGeral = stringToOrdenedString(auxGeral); 
+
+                    auxGeral = " -" + auxGeral; 
+                    auxGeral += "- "; 
+                    
+                    //cout << auxGeral << ":" << geral << "\n"; 
+                    ajuda = auxGeral.length(); 
+                    tem = false; 
+                    for (int x = 0; x < geral.length(); x++) {
+                        ajudaString = {}; 
+                        for (int y = 0; y < ajuda; y++) {
+                            ajudaString += geral[x+y];
+                        }
+                        if (ajudaString == auxGeral) {
+                            tem = true; 
+                        }
+                    }
+                    
+                    if (!tem)  {
+                        geral += auxGeral; 
+                        get<2>(procurado) = true;
+                        get<2>(coluna[k]) = true;
+                        //cout << "auxGeral:"<< auxGeral << "\n";
+                        
+                        nroDePares++;
+                        //cout << "numero de pares = " << nroDePares << "\n";
+                    }    
+                }
+            }
+        }
+    } cout << "nroDepares: " << nroDePares; 
     return nroDePares;
 }
 
-int constroiArrayPares (mintermo_* coluna, int dadosColuna, mintermo_ procurado, int nroVariaveis, mintermo_* novaColuna, int dadosNovaColuna, int index) {
 
-    int traco = 0;
-        
+int constroiArrayPares (mintermo_* coluna, int dadosColuna, mintermo_ procurao, int nroVariaveis, mintermo_* novaColuna, int dadosNovaColuna, int idex) {
+    int traco = -1;
+    int nroDePares = 0;
+    int index = 0; 
+
     string binarioBase;       // de qual string q procuro igual 
 
     string copiaTraco;
     string auxString; 
     string copiaStrColuna;
-    string auxiliar; 
-    string auxiliar2; 
-    string copiaComTraco;
+
+    string auxGeral = {}; 
+    string geral = {}; 
+    string copiaComTraco = {};
+    string copiaAuxString  ={}; 
+
+    mintermo_ procurado; 
+    mintermo_ mintermoAux;
 
     bool jaEsta = false; 
-    
-    mintermo_ mintermoAux; 
 
-    //algoritmo que itera sobre arrays procurando igual
-    binarioBase = get<1>(procurado);
-    for (int i = 0; i < nroVariaveis; i++) {
-        traco = i; 
+    int ajuda = auxGeral.length(); 
+    string ajudaString; 
+    bool tem = false;
 
-        copiaTraco = {};
-        for (int j = 0; j<nroVariaveis; j++) {          
-            if ( j!= traco) 
-                copiaTraco = copiaTraco + binarioBase[j]; 
-        }    //por exemplo, se eu tinha 1100 e traco eh 1, agora eu tenho 100
+    //vou iterar pra todos os da coluna
+    for (int i = 0; i<dadosColuna;i++) {
+       
 
-        for (int k = 0; k<dadosColuna-1; k++) {              
-            copiaStrColuna = get<1>(coluna[k]);
+        //pego o primeiro elemento da coluna
+        procurado = coluna[i]; 
+        //pego o seu valor em binario
+        binarioBase = get<1>(procurado);
+
+        //cout << "\n\nprocurando para: " << get<3>(procurado) << "\n" ; 
+ 
+        //agora, vou procurar os semelhantes para _000, 0_00, 00_0, 000_
+        traco = -1; 
+        for (int j = 0; j < nroVariaveis; j++) {
+            traco++; 
             
-            auxString = {}; 
-            for (int l = 0; l<nroVariaveis; l++) {      
-                if ( l!= traco) 
-                    auxString = auxString + copiaStrColuna[l]; 
-            } 
-            //aqui, compara pra ver se é par
-            if((auxString == copiaTraco) && (copiaStrColuna != binarioBase)) {       //melhor eh ver pelo numero em binario
+            //cria string equivalente (sem o algorismo do traco) em copiaTraco 
+            copiaTraco = {};
+            copiaComTraco = {}; 
+            for (int j = 0; j<nroVariaveis; j++) {          
+                if ( j!= traco) 
+                    copiaTraco = copiaTraco + binarioBase[j]; 
+            }
+
+            if (traco < 4)
+                copiaComTraco = copiaTraco.insert(traco, 1, '-');
+
+            //cout << "\n comparando com: "; 
+            //procura string equivalente na coluna
+            for (int k = 0; k<dadosColuna; k++) {              
+                //para isso, faz a string equivalente da coluna de acordo com iteracao
+                copiaStrColuna = get<1>(coluna[k]); 
+                auxString = {}; 
+                copiaAuxString = {}; 
+                for (int l = 0; l<nroVariaveis; l++) {      
+                    if ( l!= traco) 
+                        auxString = auxString + copiaStrColuna[l]; 
+                } 
+                if (traco < 4)
+                    copiaAuxString = auxString.insert(traco, 1, '-');
                 
-                //marcar que já foi descrito os outros mintermos
-                get<2>(procurado) = true;
-                get<2>(coluna[k]) = true; 
+                //cout <<  get<3>(coluna[k]) << ", "; 
 
-                //cout << "procurado(" << get<1>(procurado) << ") = " << get<3>(procurado) << "; coluna[" << k << "] = " << get<3>(coluna[k]) << "\n"; 
-
-                //criar novo mintermos 
-                get<3>(mintermoAux) = {}; 
-               
-
-
-                string AAAA; 
-                AAAA = get<3>(procurado);
-                AAAA += ",";
-                AAAA += get<3>(coluna[k]);        //vai ser o par. tipo 1,2 (em primeiro vai sempre o procurado)
-                AAAA = stringToOrdenedString(AAAA); 
-                 get<3>(mintermoAux) = AAAA;
+                if(copiaAuxString == copiaComTraco && k != i) {       //melhor eh ver pelo numero em binario
                 
-                copiaComTraco = copiaTraco; 
-                copiaComTraco.insert(traco, 1, '-');                                         //teste  
-                get<1>(mintermoAux) = copiaComTraco; 
-                
-                //verificar se já está no array (pelo e se não estiver colocar  //
-                for (int m = 0; m < index; m++){ //aaaa
+                    //criar novo mintermos 
+                    get<2>(procurado) = true;
+                    get<2>(coluna[k]) = true;
 
-                    if(dadosNovaColuna > 0) {
-                        if (comparaPares(novaColuna[m], mintermoAux)) { //arrumar o erro daqui
+                    get<3>(mintermoAux) = {}; 
+                    string AAAA; 
+                    AAAA = get<3>(procurado);
+                    AAAA += ",";
+                    AAAA += get<3>(coluna[k]);        //vai ser o par. tipo 1,2 (em primeiro vai sempre o procurado)
+                    AAAA = stringToOrdenedString(AAAA); 
+                    get<3>(mintermoAux) = AAAA;
+                    
+                    get<1>(mintermoAux) = copiaComTraco; 
+                    
+                    //verificar se já está no array (pelo e se não estiver colocar  //
+                    auxGeral = {}; 
+                    auxGeral += get<3>(procurado) + ',';
+                    auxGeral += get<3>(coluna[k]);
+
+                    auxGeral = stringToOrdenedString(auxGeral); 
+
+                    auxGeral = " -" + auxGeral; 
+                    auxGeral += "- "; 
+                    
+                    //cout << auxGeral << ":" << geral << "\n"; 
+                    ajuda = auxGeral.length(); 
+                    tem = false; 
+                    for (int x = 0; x < geral.length(); x++) {
+                        ajudaString = {}; 
+                        for (int y = 0; y < ajuda; y++) {
+                            ajudaString += geral[x+y];
+                        }
+                        if (ajudaString == auxGeral) {
                             jaEsta = true; 
                         }
                     }
-                }
 
-                if (!jaEsta) {
-                    novaColuna[index] = mintermoAux; 
-                    index++; 
 
-                    //cout << "mintermo aux = " << get<1>(novaColuna[index]) << "\n"; 
+                    if (!jaEsta) {
+                       
+                        geral += auxGeral; 
+                        novaColuna[index] = mintermoAux; 
+                        index++; 
+
+                        //cout << "mintermo aux = " << get<1>(novaColuna[index]) << "\n"; 
+                    }
+                    jaEsta = false;     
                 }
-                jaEsta = false;     
             }
-        }           
-    }
-    //cout << index << "\n";
-    return index; 
+        }
+    } 
+    return index;
+    
 }
 
 bool comparaPares (mintermo_ elementoUm, mintermo_ elementoDois) {
@@ -838,22 +869,14 @@ string stringToOrdenedString(string numerosContidos) {
         if (i != (tamArrayFim-1))
             retorno += ',';
     } 
-
     return retorno; 
-    
 }
 
 void desenhaTabela (string mintermos, mintermo_* arrayMintermos, int nroMintermos, mintermo_* arrayFinal, int tamArrayFinal) {
-    
     string aux;
     int auxEssencial = 0; 
 
     mintermo_tabela minTabela[tamArrayFinal];
-
-
-   
-
-
     //array de mintermos 
     for (int i = 0; i < tamArrayFinal; i++) {
         aux = get<3>(arrayFinal[i]); 
@@ -958,6 +981,12 @@ void desenhaTabela (string mintermos, mintermo_* arrayMintermos, int nroMintermo
             }
             else cout  << " + " << binarioToMintermo(get<1>(minTabela[i]));
     }  
+    cout << "\n"; 
+    for (int i = 0; i < tamArrayFinal; i++) {
+        if (get<4>(minTabela[i])) 
+            
+        cout  << get<0>(minTabela[i]) << " ";
+    } 
 }
 bool taNaString (int nro, string stringBusca) {
     int count; 
