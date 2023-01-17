@@ -173,6 +173,7 @@ int main (){
             for (int i = 0; i<nroDePares[1]; i++){
                 cout << get<3>(coluna2[i]) << ": " << get<1>(coluna2[i]) << "\n";
             } 
+            
     
 
 /*------------------------------------------------------------------------------------------
@@ -182,23 +183,21 @@ int main (){
         for (int i = 0; i<nroDePares[1];i++) {
             get<0>(coluna2[i]) = i; 
         }
-
+        
         //descobrindo numero de pares iterando a coluna 1 que fiz
-            nroDePares[2] = encontraPares(coluna2, nroDePares[1],coluna2[1],qntdVariaveis);
+        nroDePares[2] = encontraPares(coluna2, nroDePares[1],coluna2[1],qntdVariaveis);
         
-        
-        //nroDePares[2] = nroDePares[2]/4; //TESTANDO 
-        //cout << "Nro de pares: " << nroDePares[2] << "\n";  
-
         mintermo_ coluna3[nroDePares[2]]; 
     
             for(int i = 0; i < nroDePares[2]; i++) {
                 get<1>(coluna3[i]) = ""; 
-            }
-            
+            } 
+
             index = 0;                            
             index = constroiArrayPares(coluna2, nroDePares[1], coluna2[1], qntdVariaveis, coluna3, nroDePares[2], index);
         
+            
+
             ordenaColuna(coluna3, nroDePares[2],qntdVariaveis-1);      //posso ir mudando o numero de pares pq no final vou conseguir o numero de todos iterando
 
             //nroDePares[2] = index; 
@@ -512,7 +511,6 @@ void ordenaColuna  (mintermo_* coluna, int nroDeDados, int variaveis) {
 }
 
 int encontraPares (mintermo_* coluna, int dadosColuna, mintermo_ procurdo, int nroVariaveis) {
-
     int traco = -1;
     int nroDePares = 0;
     string binarioBase;       // de qual string q procuro igual 
@@ -527,7 +525,8 @@ int encontraPares (mintermo_* coluna, int dadosColuna, mintermo_ procurdo, int n
     string copiaAuxString  ={}; 
     mintermo_ procurado; 
 
-    int ajuda = auxGeral.length(); 
+    int ajuda = 0; 
+    
     string ajudaString; 
     bool tem = false;
 
@@ -610,8 +609,10 @@ int encontraPares (mintermo_* coluna, int dadosColuna, mintermo_ procurdo, int n
                 }
             }
         }
-    } cout << "nroDepares: " << nroDePares; 
+    cout << "nroDepares: " << nroDePares; 
     return nroDePares;
+    }
+    return 0; 
 }
 
 
