@@ -6,6 +6,7 @@
 #include <string.h>
 #include <tuple>
 #include <bits/stdc++.h>
+#include <vector>
 
 using namespace std;
 
@@ -43,8 +44,8 @@ string decimalToBinary(int num);
 void preencheBinario (mintermo_* array, int tam, int qntdVariaveis);
 void swap(mintermo_ *n1, mintermo_ *n2); 
 void ordenaColuna  (mintermo_* coluna, int nroDeDados, int variaveis); 
-int encontraPares (mintermo_* coluna, int dadosColuna, mintermo_ procurado, int nroVariaveis);
-int constroiArrayPares (mintermo_* coluna, int dadosColuna, mintermo_ procurado, int nroVariaveis, mintermo_* novaColuna, int dadosNovaColuna, int index); 
+int encontraPares (mintermo_* coluna, int dadosColuna, int nroVariaveis);
+int constroiArrayPares (mintermo_* coluna, int dadosColuna,int nroVariaveis, mintermo_* novaColuna, int dadosNovaColuna, int index); 
 bool comparaPares (mintermo_ elementoUm, mintermo_ elementoDois);
 int removeDuplicates(int arr[], int n); 
 string stringToOrdenedString(string numerosContidos);
